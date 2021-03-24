@@ -7,7 +7,7 @@ Use albums_db;
 #3a Code: 
 
 Select * 
-FROM albums
+FROM albums;
 
 #3b How many unique artist names are in the albums table?
 #3b Answer: There are 23 unique artists names inthe albums table.
@@ -19,6 +19,10 @@ from albums;
 #3c What is the primary key for the albums table?
 #3c Answer: Primary key for albums table is ID
 #3c Code: 
+
+Describe albums;
+
+##OR - look in the table info:
 
 CREATE TABLE `albums` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -42,16 +46,22 @@ Select *
 from albums
 order by release_date desc;
 
+###OR 
+
+SELECT DISTINCT release_date
+FROM albums
+ORDER BY release_date DESC;
+
 
 #4 Write queries to find the following information: 
 
 #4a The name of all albums by Pink Floyd
-#4a Answer: The Dark side of the Moon and The Wall are the names of all albums by Pink Floyd.
+#4a Answer: The Dark side of the Moon and The Wall are the names of all albums by Pink Floyd, returns 2 records.
 #4a Code:
 
 Select * 
 from albums
-where artist = 'Pink Floyd'
+where artist = 'Pink Floyd';
 
 #4b The year Sgt. Pepper's Lonely Hearts Club Band was released?
 #4b Answer: Release date is 1967.
@@ -59,7 +69,19 @@ where artist = 'Pink Floyd'
 
 Select *
 from albums
-where name = "Sgt. Pepper's Lonely Hearts Club Band"
+where name = "Sgt. Pepper's Lonely Hearts Club Band";
+
+#OR
+
+Select name, release_date
+FROM albums
+WHERE name = "Sgt. Pepper's Lonely Hearts Club Band";
+
+#OR 
+
+Select name, release_date
+FROM albums
+WHERE name = 'Sgt. Pepper\'s Lonely Hearts Club Band';
 
 #4c The genre for the album Nevermind?
 #4c Answer: Grunge and Alternative Rock is the genre for the album Nevermind.
@@ -80,8 +102,14 @@ Select *
 from albums
 where release_date between 1990 and 1999;
 
+OR 
+
+SELECT name
+FROM albums
+WHERE release_date BETWEEN 1990 AND 1999;
+
 #4e Which albums had less than 20 million certified sales?
-#4e Answer: Using the where clause and the less than operator we can see 13 albums had less than 20 million in certified sales.
+#4e Answer: Using the where clause and the less than operator we can see 13 albums had less than 20 million in certified sales.Returns 13 records.
 #4e Answer cont: Grease: The Original Soundtrack from the Motion Picture, Bad, Sgt. Pepper's Lonely Hearts Club Band,
 #4e Answer cont: Dirty Dancing, Let's Talk About Love, Dangerous, The Immaculate Collection, Abbey Road, 
 #4e Answer cont: Born in the U.S.A, Brothers in Arms, Titanic: Music from the Motion Picture, Nevermind, The Wall
@@ -91,11 +119,25 @@ Select *
 From albums
 where sales < 20.0;
 
+OR
+
+SELECT name, sales
+FROM albums
+WHERE sales <20;
+
 #4f All the albums with a genre of "Rock". Why do these query results not include albums with a genre of "Hard rock" or "Progressive rock"?
 #4f Answer: It will not be included due to each string is a unique identifier, such as Rock
 #4f Answer cont: != Hard Rock and is != 'Progressive Rock'. Therefore the sting will not return
 #4f Answer cont: any other values other than "Rock".
-#4f Code: N/A
+#4f Code:
+
+SELECT * 
+FROM albums
+WHERE genre = 'rock';
+
+SELECT DISTINCT genre
+FROM albums; 
+
 
 
 
