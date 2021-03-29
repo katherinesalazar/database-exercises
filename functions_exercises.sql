@@ -7,24 +7,29 @@ show tables from employees;
 /*
 Write a query to to find all employees whose last name starts and ends with 'E'. 
 Use concat() to combine their first and last name together as a single column named full_name.
---Returns 165,450 records
+--Returns 899 records
 */
 
-SELECT concat(first_name, ' ', last_name) AS full_name
+SELECT *, CONCAT(
+first_name, ' ', last_name)
+AS full_name
 FROM employees
-WHERE last_name LIKE ('%e%');
+WHERE last_name LIKE 'e%e';
 
 
 #3
 
 /*
 Convert the names produced in your last query to all uppercase.
---Returns 165,450 records
+--Returns 899 records
 */
 
-SELECT Upper(Concat(first_name,' ', last_name)) AS full_name
+SELECT UPPER(
+CONCAT(
+first_name, ' ', last_name))
+AS full_name
 FROM employees
-WHERE last_name LIKE ('%e%');
+WHERE last_name LIKE 'e%e';
 
 #4 
 
@@ -32,13 +37,12 @@ WHERE last_name LIKE ('%e%');
 Find all employees hired in the 90s and born on Christmas.
 Use datediff() function to find how many days they have been working at the company 
 (Hint: You will also need to use NOW() or CURDATE()),
---Returns 899 rows
+--Returns 362 rows
 */
 
-select*, 
-datediff(curdate(), hire_date) as 'Days Worked'
-from employees
-where last_name like ('e%e');
+SELECT *, datediff(CURDATE(), hire_date) 
+FROM employees WHERE hire_date Like '199%' 
+AND birth_Date like '%12-25';
 
 
 #5
@@ -71,12 +75,22 @@ the first 4 characters of the employees last name,
 an underscore, 
 the month the employee was born, 
 and the last two digits of the year that they were born. 
+---know that we will use:
+    -LOWER()
+    -CONCAT()
+    -SUBSTR()
 
 --Returns 300024 records
 
 */
 
-SELECT *, Lower(Concat(substr(first_name,1,1),Substr(last_name,1,4),'_',
-Substr(birth_date,6,2),Substr(birth_date,3,2))) AS username
+SELECT LOWER(
+CONCAT(
+SUBSTR(first_name, 1,1),
+SUBSTR(last_name, 1,4),
+'-',
+SUBSTR(birth_date,6,2),
+SUBSTR(birth_date,3,2)))
+AS username
 FROM employees;
 
